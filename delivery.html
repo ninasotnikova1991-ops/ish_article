@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Доставка и возврат — iShooter</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #1a1a1a;
+    --surface: #242424;
+    --surface2: #2e2e2e;
+    --border: #383838;
+    --accent: #e8a020;
+    --accent-dim: rgba(232,160,32,0.12);
+    --text: #f0f0f0;
+    --text-secondary: #999;
+    --green: #4caf6e;
+    --green-dim: rgba(76,175,110,0.12);
+    --red: #e05050;
+    --red-dim: rgba(224,80,80,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 32px;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 20px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-logo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .header-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* Sections */
+  .section {
+    padding: 20px 20px 0;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .card-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--surface2);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+  .badge.green { background: var(--green-dim); color: var(--green); border-color: transparent; }
+  .badge.amber { background: var(--accent-dim); color: var(--accent); border-color: transparent; }
+
+  /* Divider inside card */
+  .card-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0;
+  }
+
+  /* Price row */
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .price-row-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .price-row-value.free { color: var(--green); }
+
+  /* Return steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-content {}
+  .step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .step-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Notice */
+  .notice {
+    background: var(--accent-dim);
+    border: 1px solid rgba(232,160,32,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .notice-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .notice-text b { color: var(--accent); font-weight: 600; }
+
+  .notice.red {
+    background: var(--red-dim);
+    border-color: rgba(224,80,80,0.2);
+  }
+
+  /* CTA button */
+  .cta-wrap {
+    padding: 20px 20px 0;
+  }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 15px;
+    background: var(--accent);
+    color: #111;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .cta-btn:active { opacity: 0.8; }
+
+  .spacer { height: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">iShooter.ru</div>
+  <div class="header-title">Доставка и возврат</div>
+</div>
+
+<!-- Доставка -->
+<div class="section" style="margin-top:20px;">
+  <div class="section-label">Способы доставки</div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📦</span> СДЭК</div>
+    <div class="card-desc">До пункта выдачи или курьером до двери. Отслеживание посылки в приложении СДЭК.</div>
+    <div class="price-row">
+      <span class="price-row-label">До пункта выдачи</span>
+      <span class="price-row-value">от 250 ₽</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">Курьер до двери</span>
+      <span class="price-row-value">от 400 ₽</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">Заказ от 5 000 ₽</span>
+      <span class="price-row-value free">Бесплатно</span>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-meta">
+      <span class="badge green">1–5 дней</span>
+      <span class="badge">По всей России</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✉️</span> Почта России</div>
+    <div class="card-desc">Отправка 1-м классом. Подходит для отдалённых регионов, где нет СДЭК.</div>
+    <div class="price-row">
+      <span class="price-row-label">Стоимость</span>
+      <span class="price-row-value">от 350 ₽</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">Наложенный платёж</span>
+      <span class="price-row-value">+ комиссия почты</span>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-meta">
+      <span class="badge amber">3–14 дней</span>
+      <span class="badge">Все регионы</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏎️</span> Курьер по Москве</div>
+    <div class="card-desc">Доставка по Москве в пределах МКАД в день заказа или на следующий день.</div>
+    <div class="price-row">
+      <span class="price-row-label">В пределах МКАД</span>
+      <span class="price-row-value">350 ₽</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">За МКАД (до 10 км)</span>
+      <span class="price-row-value">500 ₽</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">Заказ от 7 000 ₽</span>
+      <span class="price-row-value free">Бесплатно</span>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-meta">
+      <span class="badge green">День в день / завтра</span>
+      <span class="badge">Только Москва</span>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- Оплата -->
+<div class="section">
+  <div class="section-label">Оплата</div>
+  <div class="card">
+    <div class="price-row">
+      <span class="price-row-label">💳 Карта онлайн</span>
+      <span class="price-row-value">Visa / MasterCard / Мир</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">📱 СБП</span>
+      <span class="price-row-value">Быстрые платежи</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">🏦 Перевод</span>
+      <span class="price-row-value">По реквизитам</span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">📦 Наложенный платёж</span>
+      <span class="price-row-value">Почта России</span>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- Возврат -->
+<div class="section">
+  <div class="section-label">Возврат товара</div>
+
+  <div class="notice">
+    <div class="notice-icon">⏱️</div>
+    <div class="notice-text">Принимаем возвраты в течение <b>14 дней</b> с момента получения заказа — если товар не подошёл.</div>
+  </div>
+
+  <div class="card">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Напишите нам</div>
+          <div class="step-text">Свяжитесь с консультантом в Telegram или по email. Укажите номер заказа и причину возврата.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Получите подтверждение</div>
+          <div class="step-text">Менеджер согласует возврат и пришлёт адрес для отправки товара.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Отправьте товар</div>
+          <div class="step-text">Упакуйте в оригинальную упаковку и отправьте любой службой доставки.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Получите деньги</div>
+          <div class="step-text">Возврат средств в течение 3–5 рабочих дней после получения товара нами.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice red">
+    <div class="notice-icon">⚠️</div>
+    <div class="notice-text">Возврат не принимается, если товар был в употреблении, утрачен товарный вид или отсутствует оригинальная упаковка.</div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <a class="cta-btn" href="https://t.me/iShooter" onclick="Telegram.WebApp.close()">
+    💬 Есть вопрос? Написать консультанту
+  </a>
+</div>
+
+<script>
+  // Инициализация Telegram Web App
+  if (window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    // Адаптация цветов под тему Telegram
+    if (tg.colorScheme === 'light') {
+      document.documentElement.style.setProperty('--bg', '#f5f5f5');
+      document.documentElement.style.setProperty('--surface', '#ffffff');
+      document.documentElement.style.setProperty('--surface2', '#f0f0f0');
+      document.documentElement.style.setProperty('--border', '#e0e0e0');
+      document.documentElement.style.setProperty('--text', '#1a1a1a');
+      document.documentElement.style.setProperty('--text-secondary', '#666');
+    }
+  }
+</script>
+
+</body>
+</html>
