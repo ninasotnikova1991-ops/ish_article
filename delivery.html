@@ -30,10 +30,9 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding-bottom: 32px;
+    padding-bottom: 40px;
   }
 
-  /* Header */
   .header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -50,17 +49,93 @@
     color: var(--accent);
     margin-bottom: 4px;
   }
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
   .header-title {
     font-size: 22px;
     font-weight: 700;
     color: var(--text);
     line-height: 1.2;
+    flex: 1;
+  }
+  .back-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    display: none;
+  }
+  .back-btn.visible { display: block; }
+
+  /* ── Экран выбора региона ── */
+  #screen-region {
+    padding: 24px 20px 0;
+  }
+  .region-intro {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .region-intro span {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .region-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .region-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left;
+    width: 100%;
+  }
+  .region-btn:active {
+    background: var(--surface2);
+    border-color: var(--accent);
+  }
+  .region-icon {
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .region-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .region-hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .region-arrow {
+    margin-left: auto;
+    color: var(--text-secondary);
+    font-size: 18px;
+    flex-shrink: 0;
   }
 
-  /* Sections */
-  .section {
-    padding: 20px 20px 0;
-  }
+  /* ── Экран с условиями ── */
+  #screen-info { display: none; }
+
+  .section { padding: 20px 20px 0; }
   .section-label {
     font-size: 11px;
     font-weight: 600;
@@ -70,7 +145,6 @@
     margin-bottom: 12px;
   }
 
-  /* Cards */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -87,21 +161,14 @@
     align-items: center;
     gap: 8px;
   }
-  .card-title .icon {
-    font-size: 18px;
-    line-height: 1;
-  }
+  .card-title .icon { font-size: 18px; line-height: 1; }
   .card-desc {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
     margin-bottom: 10px;
   }
-  .card-meta {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; }
   .badge {
     font-size: 12px;
     font-weight: 500;
@@ -114,14 +181,8 @@
   .badge.green { background: var(--green-dim); color: var(--green); border-color: transparent; }
   .badge.amber { background: var(--accent-dim); color: var(--accent); border-color: transparent; }
 
-  /* Divider inside card */
-  .card-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 12px 0;
-  }
+  .card-divider { height: 1px; background: var(--border); margin: 12px 0; }
 
-  /* Price row */
   .price-row {
     display: flex;
     justify-content: space-between;
@@ -130,23 +191,11 @@
     border-bottom: 1px solid var(--border);
   }
   .price-row:last-child { border-bottom: none; }
-  .price-row-label {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-  .price-row-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  .price-row-label { font-size: 13px; color: var(--text-secondary); }
+  .price-row-value { font-size: 14px; font-weight: 600; color: var(--text); }
   .price-row-value.free { color: var(--green); }
 
-  /* Return steps */
-  .steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .steps { display: flex; flex-direction: column; gap: 0; }
   .step {
     display: flex;
     gap: 14px;
@@ -156,34 +205,18 @@
   }
   .step:last-child { border-bottom: none; }
   .step-num {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     background: var(--accent-dim);
     border: 1.5px solid var(--accent);
     color: var(--accent);
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
   }
-  .step-content {}
-  .step-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .step-text {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
+  .step-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .step-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 
-  /* Notice */
   .notice {
     background: var(--accent-dim);
     border: 1px solid rgba(232,160,32,0.25);
@@ -197,205 +230,347 @@
   .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
   .notice-text { font-size: 13px; color: var(--text); line-height: 1.5; }
   .notice-text b { color: var(--accent); font-weight: 600; }
-
-  .notice.red {
-    background: var(--red-dim);
-    border-color: rgba(224,80,80,0.2);
-  }
-
-  /* CTA button */
-  .cta-wrap {
-    padding: 20px 20px 0;
-  }
-  .cta-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 15px;
-    background: var(--accent);
-    color: #111;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 0.15s;
-  }
-  .cta-btn:active { opacity: 0.8; }
+  .notice.red { background: var(--red-dim); border-color: rgba(224,80,80,0.2); }
 
   .spacer { height: 12px; }
+
+  /* Регион-тег в заголовке */
+  .region-tag {
+    display: inline-block;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-logo">iShooter.ru</div>
-  <div class="header-title">Доставка и возврат</div>
+  <div class="header-row">
+    <div class="header-title" id="header-title">Доставка и возврат</div>
+    <button class="back-btn" id="back-btn" onclick="showRegionScreen()">← Изменить</button>
+  </div>
+  <div id="region-tag"></div>
 </div>
 
-<!-- Доставка -->
-<div class="section" style="margin-top:20px;">
-  <div class="section-label">Способы доставки</div>
+<!-- Экран 1: выбор региона -->
+<div id="screen-region">
+  <div style="padding: 24px 20px 0;">
+    <p class="region-intro">Выбери свой регион — покажем <span>только нужные условия</span> доставки 👇</p>
+    <div class="region-grid">
 
-  <div class="card">
-    <div class="card-title"><span class="icon">📦</span> СДЭК / Яндекс Маркет</div>
-    <div class="card-desc">До пункта выдачи или курьером до двери. Отслеживание посылки в приложении СДЭК.</div>
-    <div class="price-row">
-      <span class="price-row-label">До пункта выдачи</span>
-      <span class="price-row-value">от 99 ₽ при предоплате и заказе от 600 ₽</span>
-    </div>
-    <div class="price-row">
-      <span class="price-row-label">Курьер до двери</span>
-      <span class="price-row-value">600 ₽</span>
-    </div>
-    <div class="price-row">
-      <span class="price-row-label">Заказ от 6 000 ₽</span>
-      <span class="price-row-value free">Бесплатно</span>
-    </div>
-    <div class="card-divider"></div>
-    <div class="card-meta">
-      <span class="badge green">1–5 дней</span>
-      <span class="badge">По всей России</span>
-    </div>
-  </div>
+      <button class="region-btn" onclick="showInfo('moscow')">
+        <span class="region-icon">🏙️</span>
+        <div>
+          <div class="region-name">Москва</div>
+          <div class="region-hint">Курьер, СДЭК — день в день или завтра</div>
+        </div>
+        <span class="region-arrow">›</span>
+      </button>
 
-  <div class="card">
-    <div class="card-title"><span class="icon">✉️</span> Почта России</div>
-    <div class="card-desc">Отправка 1-м классом. Подходит для отдалённых регионов, где нет СДЭК.</div>
-    <div class="price-row">
-      <span class="price-row-label">Стоимость</span>
-      <span class="price-row-value">от 600 ₽</span>
-    </div>
-    <div class="card-divider"></div>
-    <div class="card-meta">
-      <span class="badge amber">3–14 дней</span>
-      <span class="badge">Все регионы</span>
-    </div>
-  </div>
+      <button class="region-btn" onclick="showInfo('russia')">
+        <span class="region-icon">🇷🇺</span>
+        <div>
+          <div class="region-name">Россия (другие регионы)</div>
+          <div class="region-hint">СДЭК, Яндекс Маркет, Почта России</div>
+        </div>
+        <span class="region-arrow">›</span>
+      </button>
 
-  <div class="card">
-    <div class="card-title"><span class="icon">🏎️</span> Курьер по Москве</div>
-    <div class="card-desc">Доставка по Москве в пределах МКАД через СДЭК. Только по предоплате. Время и детали согласовываются по телефону.</div>
-    <div class="price-row">
-      <span class="price-row-label">В пределах МКАД</span>
-      <span class="price-row-value">350 ₽</span>
-    </div>
-    <div class="price-row">
-      <span class="price-row-label">За МКАД</span>
-      <span class="price-row-value">по согласованию</span>
-    </div>
-    <div class="price-row">
-      <span class="price-row-label">Заказ от 10 000 ₽</span>
-      <span class="price-row-value free">Бесплатно</span>
-    </div>
-    <div class="card-divider"></div>
-    <div class="card-meta">
-      <span class="badge green">День в день / завтра</span>
-      <span class="badge">Только Москва</span>
-    </div>
-  </div>
+      <button class="region-btn" onclick="showInfo('international')">
+        <span class="region-icon">✈️</span>
+        <div>
+          <div class="region-name">СНГ и другие страны</div>
+          <div class="region-hint">EMS Экспресс — международная доставка</div>
+        </div>
+        <span class="region-arrow">›</span>
+      </button>
 
-  <div class="card">
-    <div class="card-title"><span class="icon">✈️</span> Международная доставка</div>
-    <div class="card-desc">Доставка за рубеж через EMS Экспресс. Возврат по международным заказам не осуществляется.</div>
-    <div class="price-row">
-      <span class="price-row-label">EMS Экспресс</span>
-      <span class="price-row-value">от 3 500 ₽</span>
-    </div>
-    <div class="card-divider"></div>
-    <div class="card-meta">
-      <span class="badge amber">7–21 день</span>
-      <span class="badge">СНГ и другие страны</span>
     </div>
   </div>
 </div>
 
-<div class="spacer"></div>
+<!-- Экран 2: условия по региону -->
+<div id="screen-info">
 
-<!-- Оплата -->
-<div class="section">
-  <div class="section-label">Оплата</div>
-  <div class="card">
-    <div class="price-row">
-      <span class="price-row-label">💳 Карта онлайн</span>
-      <span class="price-row-value">Visa / MasterCard / Мир</span>
+  <!-- Москва -->
+  <div id="info-moscow" class="region-info" style="display:none;">
+    <div class="section" style="margin-top:20px;">
+      <div class="section-label">Доставка по Москве</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">🏎️</span> Курьер СДЭК по Москве</div>
+        <div class="card-desc">Только по предоплате. Время и детали согласовываются по телефону.</div>
+        <div class="price-row">
+          <span class="price-row-label">В пределах МКАД</span>
+          <span class="price-row-value">350 ₽</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">За МКАД</span>
+          <span class="price-row-value">по согласованию</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Заказ от 10 000 ₽</span>
+          <span class="price-row-value free">Бесплатно</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-meta">
+          <span class="badge green">День в день / завтра</span>
+          <span class="badge">Только Москва</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">📦</span> СДЭК — пункт выдачи</div>
+        <div class="card-desc">Можно выбрать ближайший ПВЗ СДЭК и забрать самостоятельно.</div>
+        <div class="price-row">
+          <span class="price-row-label">До пункта выдачи</span>
+          <span class="price-row-value">от 99 ₽ при предоплате</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Заказ от 6 000 ₽</span>
+          <span class="price-row-value free">Бесплатно</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-meta">
+          <span class="badge green">1–2 дня</span>
+        </div>
+      </div>
     </div>
-    <div class="price-row">
-      <span class="price-row-label">📱 СБП</span>
-      <span class="price-row-value">Быстрые платежи</span>
+
+    <div class="spacer"></div>
+    <div class="section">
+      <div class="section-label">Оплата</div>
+      <div class="card">
+        <div class="price-row">
+          <span class="price-row-label">💳 Карта онлайн</span>
+          <span class="price-row-value">Visa / MasterCard / Мир</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">📱 СБП</span>
+          <span class="price-row-value">Быстрые платежи</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="notice" style="margin:0; border-radius:8px;">
+          <div class="notice-icon">🧾</div>
+          <div class="notice-text">Чек придёт на email автоматически. <b>Наложенный платёж не предусмотрен.</b></div>
+        </div>
+      </div>
     </div>
-    <div class="card-divider"></div>
-    <div class="notice" style="margin: 0; border-radius: 8px;">
-      <div class="notice-icon">🧾</div>
-      <div class="notice-text">После оплаты кассовый чек автоматически придёт на вашу электронную почту. <b>Наложенный платёж и перевод по реквизитам не предусмотрены.</b></div>
-    </div>
+
+    <div class="spacer"></div>
+    <div id="return-section-moscow"></div>
   </div>
+
+  <!-- Россия -->
+  <div id="info-russia" class="region-info" style="display:none;">
+    <div class="section" style="margin-top:20px;">
+      <div class="section-label">Доставка по России</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">📦</span> СДЭК / Яндекс Маркет</div>
+        <div class="card-desc">До пункта выдачи или курьером до двери. Отслеживание в приложении СДЭК.</div>
+        <div class="price-row">
+          <span class="price-row-label">До пункта выдачи</span>
+          <span class="price-row-value">от 99 ₽ при предоплате и заказе от 600 ₽</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Курьер до двери</span>
+          <span class="price-row-value">600 ₽</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">Заказ от 6 000 ₽</span>
+          <span class="price-row-value free">Бесплатно</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-meta">
+          <span class="badge green">1–5 дней</span>
+          <span class="badge">По всей России</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">✉️</span> Почта России</div>
+        <div class="card-desc">Отправка 1-м классом. Для отдалённых регионов, где нет СДЭК.</div>
+        <div class="price-row">
+          <span class="price-row-label">Стоимость</span>
+          <span class="price-row-value">от 600 ₽</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-meta">
+          <span class="badge amber">3–14 дней</span>
+          <span class="badge">Все регионы</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="section">
+      <div class="section-label">Оплата</div>
+      <div class="card">
+        <div class="price-row">
+          <span class="price-row-label">💳 Карта онлайн</span>
+          <span class="price-row-value">Visa / MasterCard / Мир</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">📱 СБП</span>
+          <span class="price-row-value">Быстрые платежи</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="notice" style="margin:0; border-radius:8px;">
+          <div class="notice-icon">🧾</div>
+          <div class="notice-text">Чек придёт на email автоматически. <b>Наложенный платёж не предусмотрен.</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div id="return-section-russia"></div>
+  </div>
+
+  <!-- Международная -->
+  <div id="info-international" class="region-info" style="display:none;">
+    <div class="section" style="margin-top:20px;">
+      <div class="section-label">Международная доставка</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">✈️</span> EMS Экспресс</div>
+        <div class="card-desc">Доставка за рубеж через EMS. Стоимость зависит от веса посылки и страны назначения.</div>
+        <div class="price-row">
+          <span class="price-row-label">EMS Экспресс</span>
+          <span class="price-row-value">от 3 500 ₽</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-meta">
+          <span class="badge amber">7–21 день</span>
+          <span class="badge">СНГ и другие страны</span>
+        </div>
+      </div>
+
+      <div class="notice red">
+        <div class="notice-icon">⚠️</div>
+        <div class="notice-text"><b>Возврат по международным заказам не осуществляется.</b> Пожалуйста, уточняйте все детали до оформления.</div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="section">
+      <div class="section-label">Оплата</div>
+      <div class="card">
+        <div class="price-row">
+          <span class="price-row-label">💳 Карта онлайн</span>
+          <span class="price-row-value">Visa / MasterCard / Мир</span>
+        </div>
+        <div class="price-row">
+          <span class="price-row-label">📱 СБП</span>
+          <span class="price-row-value">Быстрые платежи</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="notice" style="margin:0; border-radius:8px;">
+          <div class="notice-icon">🧾</div>
+          <div class="notice-text">Чек придёт на email автоматически. <b>Наложенный платёж не предусмотрен.</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
 </div>
 
-<div class="spacer"></div>
-
-<!-- Возврат -->
-<div class="section">
-  <div class="section-label">Возврат товара</div>
-
-  <div class="notice">
-    <div class="notice-icon">⏱️</div>
-    <div class="notice-text">Принимаем возвраты в течение <b>14 дней</b> с момента получения заказа — если товар не подошёл.</div>
-  </div>
-
-  <div class="card">
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <div class="step-title">Напишите нам</div>
-          <div class="step-text">Свяжитесь с консультантом в Telegram или по email. Укажите номер заказа и причину возврата.</div>
+<!-- Блок возврата (общий для Москвы и России, вставляется JS) -->
+<template id="return-template">
+  <div class="section">
+    <div class="section-label">Возврат товара</div>
+    <div class="notice">
+      <div class="notice-icon">⏱️</div>
+      <div class="notice-text">Принимаем возвраты в течение <b>14 дней</b> с момента получения заказа.</div>
+    </div>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Напишите нам</div>
+            <div class="step-text">Свяжитесь в Telegram или по email. Укажите номер заказа и причину.</div>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <div class="step-title">Получите подтверждение</div>
-          <div class="step-text">Менеджер согласует возврат и пришлёт адрес для отправки товара.</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Получите подтверждение</div>
+            <div class="step-text">Менеджер согласует возврат и пришлёт адрес для отправки.</div>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <div class="step-title">Отправьте товар</div>
-          <div class="step-text">Упакуйте в оригинальную упаковку и отправьте любой службой доставки.</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Отправьте товар</div>
+            <div class="step-text">Упакуйте в оригинальную упаковку и отправьте любой службой.</div>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <div class="step-title">Получите деньги</div>
-          <div class="step-text">Возврат средств в течение 3–5 рабочих дней после получения товара нами.</div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Получите деньги</div>
+            <div class="step-text">Возврат в течение 3–5 рабочих дней после получения товара нами.</div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="notice red">
+      <div class="notice-icon">⚠️</div>
+      <div class="notice-text">Возврат не принимается, если товар был в употреблении, утрачен товарный вид или отсутствует оригинальная упаковка.</div>
+    </div>
   </div>
-
-  <div class="notice red">
-    <div class="notice-icon">⚠️</div>
-    <div class="notice-text">Возврат не принимается, если товар был в употреблении, утрачен товарный вид или отсутствует оригинальная упаковка.</div>
-  </div>
-</div>
-
-<div class="spacer"></div>
-
+</template>
 
 <script>
-  // Инициализация Telegram Web App
+  const REGION_LABELS = {
+    moscow: '🏙️ Москва',
+    russia: '🇷🇺 Другие регионы России',
+    international: '✈️ Международная доставка',
+  };
+
+  function showInfo(region) {
+    document.getElementById('screen-region').style.display = 'none';
+    document.getElementById('screen-info').style.display = 'block';
+
+    document.querySelectorAll('.region-info').forEach(el => el.style.display = 'none');
+    document.getElementById('info-' + region).style.display = 'block';
+
+    document.getElementById('back-btn').classList.add('visible');
+    document.getElementById('region-tag').innerHTML =
+      '<span class="region-tag">' + REGION_LABELS[region] + '</span>';
+
+    if (region === 'moscow' || region === 'russia') {
+      const targetId = 'return-section-' + region;
+      const target = document.getElementById(targetId);
+      if (target && !target.hasChildNodes()) {
+        const tmpl = document.getElementById('return-template');
+        target.appendChild(tmpl.content.cloneNode(true));
+      }
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  function showRegionScreen() {
+    document.getElementById('screen-region').style.display = 'block';
+    document.getElementById('screen-info').style.display = 'none';
+    document.getElementById('back-btn').classList.remove('visible');
+    document.getElementById('region-tag').innerHTML = '';
+    window.scrollTo(0, 0);
+  }
+
   if (window.Telegram && window.Telegram.WebApp) {
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
-
-    // Адаптация цветов под тему Telegram
     if (tg.colorScheme === 'light') {
       document.documentElement.style.setProperty('--bg', '#f5f5f5');
       document.documentElement.style.setProperty('--surface', '#ffffff');
